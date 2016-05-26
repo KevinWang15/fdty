@@ -3,13 +3,11 @@
  * 复旦体育考试-自动答题机器
  * =======================================
  * 方便易用，基于Chrome，兼容所有操作系统。
- * 自动读取网页、匹配题库，瞬间出答案，节省时间。
+ * 自动读取网页、匹配题库，瞬间出答案、自动勾选，节省时间。
  *
  * https://github.com/KevinWang15/fdty
  *
- * 求Pull Request：
- *  1. 完善题库
- *  2. 自动点击功能
+ * 求完善题库，请发Pull Request
  *
  * By 王轲 (KevinWang)
  * 2016-5-26
@@ -60,13 +58,9 @@
             else
                 console.log((questionI + 1) + "." + '%c×错误 %c' + question.text, 'color: red', 'color: black');
 
-            //我用的自动勾选是：
+            //自动勾选
             window.jQuery("#" + getRadioButtonId(questionI, answer ^ 1)).click();
-
-            //如果你有两次提交机会，请拿你的第一次提交机会做个试验
         });
-
-        //console.info('目前自动勾选功能不稳定，可能导致0分，已被禁用，请手动勾选！%c(有能力的同学请看代码，为本程序做出贡献)', 'font-size:6px; color: #AAA');
 
         console.info('总共' + questions.length + "题，匹配成功" + successCount + "题。");
         console.warn('请过几分钟，等计时器走到一个正常数字了，再交卷！');
@@ -97,7 +91,7 @@
 
     loadScript("http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js", function () {
         var IntervalId = 0;
-        console.info('加载中，如果长时间无响应，请确定Chrome Console的“top”下拉菜单调整到了paper(stexampaperV1.aspx)中');
+        console.info('正在寻找页面中的题目…');
         IntervalId = setInterval(function () {
             var panelElement = window.jQuery('#Panel3');
             if (!!panelElement && !!panelElement.html()) {
@@ -115,7 +109,7 @@
 
         setTimeout(function () {
             if (IntervalId != -9999) {
-                console.warn('仍然没有找到题目，您确定在Chrome Console的“top”下拉菜单调整到了paper(stexampaperV1.aspx)中了？');
+                console.warn('仍然没有找到题目，您确定已经点了开始考试、在考试界面中，而且Chrome开发者工具的“top”下拉菜单调整到了paper(stexampaperV1.aspx)中了？');
             }
         }, 3000);
     });
