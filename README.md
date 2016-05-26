@@ -29,7 +29,7 @@
 
 ##求Pull Request
 ###1. 完善题库
-```database_generator```目录下有个nodeJs的题目格式转换器，在```rawdata```文件夹中，新建一个txt，以这种方式一行一题，
+在```database_generator```目录下有个nodeJs的题目格式转换器，在```rawdata```文件夹中，新建一个txt，以这种方式一行一题，
 
 	["获得和利用食物的综合过程称为营养。","true"],
 	["合理的营养意味着机体能够摄入保持身体健康所必须的部分营养成分。","false"],
