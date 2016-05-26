@@ -11,10 +11,10 @@
 ###1. 使用 **Chrome** 打开考试界面
 一定要较新版本的Chrome！别的浏览器没试过，尽量不要用！
 ###2. 在考试界面中，打开开发者工具里的控制台
-|操作系统|快捷键|
-|--|--|
-|Windows|<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>J</kbd>|
-|Mac|<kbd>Command</kbd>+<kbd>Option</kbd>+<kbd>J</kbd>|
+| 操作系统 | 快捷键 |
+| ----- | ----- |
+| Windows | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>J</kbd> |
+| Mac | <kbd>Command</kbd>+<kbd>Option</kbd>+<kbd>J</kbd> |
 ###3. 修改左上角下拉菜单的值
 ![show](screenshots/1.png)
 
