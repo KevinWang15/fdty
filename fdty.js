@@ -25,8 +25,15 @@
         return 'repVer_rbtn_ver_' + id + '_' + (answer ? 1 : 0) + '_' + id;
     }
 
-    function doJob(panelElement) {
+    function getRadioButtonIdForMultipleSelection(id, answer) {
+        answer = stripUnimportantChars(answer);
+        return 'repSin_RadioButtonList' + id + '_0_' + {'a': 0, 'b': 1, 'c': 2, 'd': 3}[answer] + "_0";
+    }
+
+    function doWork(panelElement, questionType) {
         //主要算法在此。
+
+        console.info('【======== ' + questionType + ' ========】');
 
         var html = panelElement.html();
         var questions = [];
@@ -60,19 +67,28 @@
                 console.log((questionI + 1) + "." + '%c×错误 %c' + question.text, 'color: red', 'color: black');
             else {
                 console.log((questionI + 1) + "." + '%c答案：' + answer + ' %c' + question.text, 'color: orange', 'color: black');
-                console.warn('单选题自动勾选还未实现，请手动选择.');
+
+                // console.warn('单选题自动勾选还未实现，请手动选择.');
             }
 
             //自动勾选
             if (answer === true || answer === false)
                 window.jQuery("#" + getRadioButtonId(questionI, answer ^ 1)).click();
             else {
+
+                try {
+                    window.jQuery("#" + getRadioButtonIdForMultipleSelection(questionI + 1, answer)).click();
+                } catch (ex) {
+                    console.warn('单选题自动勾选发生了异常。\n报告问题： https://github.com/KevinWang15/fdty', getRadioButtonIdForMultipleSelection(questionI + 1, answer), ex);
+                }
+
+                if (questionI > 0)
+                    console.warn('一道以上单选题的自动勾选没有经过测试，可能会选错，请仔细核对！\n报告问题： https://github.com/KevinWang15/fdty');
                 //求PR 添加单选题自动勾选支持
             }
         });
 
-        console.info('总共' + questions.length + "题，匹配成功" + successCount + "题。");
-        console.warn('请过几分钟，等计时器走到一个正常数字了，再交卷！');
+        console.info('总共' + questions.length + "题，匹配成功" + successCount + "题。\n　");
     }
 
 
@@ -111,7 +127,9 @@
 
                 loadScript(database_url, function () {
                     console.info('题库下载成功！总共' + Object.keys(window.fdty_database).length + "条记录");
-                    doJob(panelElement);
+                    doWork(window.jQuery('#Panel3'), '是非题');
+                    doWork(window.jQuery('#Panel1'), '单选题');
+                    console.warn('程序完成，请仔细核对！\n请过几分钟，等计时器走到一个正常数字了，再交卷！');
                 });
             }
         }, 100);
