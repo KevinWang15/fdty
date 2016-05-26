@@ -41,15 +41,3 @@
 	...
 
 然后运行```node generate.js```就行了，谢谢。
-###2. 自动勾选功能
-我之前想做一个自动勾选的功能（更加节省时间，都不要用户点击鼠标了）。
-但很悲剧的是，我用
-
-	window.jQuery("#" + getRadioButtonId(questionI, answer)).prop("checked", true);
-
-看似都选上了，一提交，竟然零分。
-好像有一个EVENT VALIDATOR，具体零分的原因是不是和这个有关？当时我没仔细看代码，现在系统又不让进了。
-要等到下次体育理论考再研究了。
-如果有同学发现不会导致0分的自动点击方法，欢迎发PULL REQUEST。
-或许用 [这里的模拟用户点击的方法会有用](http://stackoverflow.com/questions/6157929/how-to-simulate-a-mouse-click-using-javascript)
-每个人有两次提交机会，如果你有兴趣，请拿你的第一次提交机会做个试验。

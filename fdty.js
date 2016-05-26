@@ -60,26 +60,13 @@
             else
                 console.log((questionI + 1) + "." + '%c×错误 %c' + question.text, 'color: red', 'color: black');
 
-            //自动点击功能可能导致零分，
-            //好像有一个EVENT VALIDATOR
-            //（具体零分的原因是不是和这个有关？当时我没仔细看代码，现在系统又不让进了），
-            //要等到下次体育理论考再研究了。
-            //如果有同学发现不会导致0分的自动点击方法，
-            //欢迎发PULL REQUEST
-            //https://github.com/KevinWang15/fdty
-
             //我用的自动勾选是：
-            //window.jQuery("#" + getRadioButtonId(questionI, answer)).prop("checked", true);
-            //只试过一次，导致了零分
-
-            //或许用
-            //http://stackoverflow.com/questions/6157929/how-to-simulate-a-mouse-click-using-javascript
-            //这里的模拟用户点击的方法会有用。
+            window.jQuery("#" + getRadioButtonId(questionI, answer ^ 1)).click();
 
             //如果你有两次提交机会，请拿你的第一次提交机会做个试验
         });
 
-        console.info('目前自动勾选功能不稳定，可能导致0分，已被禁用，请手动勾选！%c(有能力的同学请看代码，为本程序做出贡献)', 'font-size:6px; color: #AAA');
+        //console.info('目前自动勾选功能不稳定，可能导致0分，已被禁用，请手动勾选！%c(有能力的同学请看代码，为本程序做出贡献)', 'font-size:6px; color: #AAA');
 
         console.info('总共' + questions.length + "题，匹配成功" + successCount + "题。");
         console.warn('请过几分钟，等计时器走到一个正常数字了，再交卷！');
