@@ -53,13 +53,22 @@
 
             successCount++;
 
-            if (answer)
+
+            if (answer === true)
                 console.log((questionI + 1) + "." + '%c√正确 %c' + question.text, 'color: green', 'color: black');
-            else
+            else if (answer === false)
                 console.log((questionI + 1) + "." + '%c×错误 %c' + question.text, 'color: red', 'color: black');
+            else {
+                console.log((questionI + 1) + "." + '%c答案：' + answer + ' %c' + question.text, 'color: orange', 'color: black');
+                console.warn('单选题自动勾选还未实现，请手动选择.');
+            }
 
             //自动勾选
-            window.jQuery("#" + getRadioButtonId(questionI, answer ^ 1)).click();
+            if (answer === true || answer === false)
+                window.jQuery("#" + getRadioButtonId(questionI, answer ^ 1)).click();
+            else {
+                //求PR 添加单选题自动勾选支持
+            }
         });
 
         console.info('总共' + questions.length + "题，匹配成功" + successCount + "题。");
