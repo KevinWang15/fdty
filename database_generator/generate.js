@@ -9,7 +9,7 @@ var ignored = {};
 var answerCount = {tf: 0, ms: 0, dup: 0, conflict: 0};
 
 function stripUnimportantChars(str) {
-    return str.replace(/[ 　\t\r\n,，\.。:：“”《》【】()_—\-＿－（）<>、\/\\"'`]/mg, "").toLowerCase();
+    return str.replace(/[ 　\t\r\n,，\.。:：“”《》？?！!~～｀`【】()_—\-＿－（）<>、\/\\"'`]/mg, "").toLowerCase();
 }
 
 function parseAnswer(answer) {

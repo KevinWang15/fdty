@@ -18,7 +18,7 @@
     var database_url = 'http://139.196.50.217/fdty/database.js';
 
     function stripUnimportantChars(str) {
-        return str.replace(/[ 　\t\r\n,，\.。:：“”《》【】()_—\-＿－（）<>、\/\\"'`]/mg, "").toLowerCase();
+        return str.replace(/[ 　\t\r\n,，\.。:：“”《》？?！!~～｀`【】()_—\-＿－（）<>、\/\\"'`]/mg, "").toLowerCase();
     }
 
     function getRadioButtonId(id, answer) {
