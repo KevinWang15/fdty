@@ -116,6 +116,7 @@
 
     loadScript("http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js", function () {
         var IntervalId = 0;
+        console.info('请在考试界面中运行本程序哦！\n点击“开始考试”，能看到题目，计时器开始走，然后将Chrome开发者工具的“top”下拉菜单调整到paper(stexampaperV1.aspx)后。');
         console.info('正在寻找页面中的题目…');
         IntervalId = setInterval(function () {
             var panelElement = window.jQuery('#Panel3');
@@ -129,6 +130,8 @@
                     console.info('题库下载成功！总共' + Object.keys(window.fdty_database).length + "条记录");
                     doWork(window.jQuery('#Panel3'), '是非题');
                     doWork(window.jQuery('#Panel1'), '单选题');
+
+        			console.info('自动勾选功能的BUG已经修复，不会导致零分，已有多位同学亲测，请放心使用。');
                     console.warn('程序完成，请仔细核对！\n请过几分钟，等计时器走到一个正常数字了，再交卷！');
                 });
             }
@@ -136,7 +139,7 @@
 
         setTimeout(function () {
             if (IntervalId != -9999) {
-                console.warn('仍然没有找到题目，您确定已经点了开始考试、在考试界面中，而且Chrome开发者工具的“top”下拉菜单调整到了paper(stexampaperV1.aspx)中了？');
+                console.warn('仍然没有找到题目，您确定已经点了开始考试、在考试界面中，而且Chrome开发者工具的“top”下拉菜单调整到了paper(stexampaperV1.aspx)中了？\n如果您是忘记调整到paper(stexampaperV1.aspx)中了，请调整后重新运行代码（无需刷新页面）。');
             }
         }, 3000);
     });
