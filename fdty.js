@@ -65,7 +65,7 @@
             var answer = window.fdty_database[strippedText];
 
             if (typeof answer == 'undefined') {
-                answer = tryLevenshtein(question.text);
+                answer = tryFindSimilar(question.text);
                 if (typeof answer == 'undefined') {
                     console.error('【题库中没有答案！】', question.text);
                     return;
@@ -125,22 +125,33 @@
         document.getElementsByTagName("head")[0].appendChild(script);
     }
 
-    function tryLevenshtein(text) {
-        // 若都选择否，Levenshtein也匹配失败，则返回undefined
+    function tryFindSimilar(text) {
+        // 若都选择否，则返回undefined
+        var text_core_strip_parentheses = stripUnimportantChars(text.replace(/(\(.+?\)|（(.+?)）|【(.+?)】|\[(.+?)\])/mg, ""));
         var text_core = stripUnimportantChars(text);
         var threshold = text_core.length * 0.22;
         for (var key in window.fdty_database) {
             if (!window.fdty_database.hasOwnProperty(key))
                 continue;
+
+            var possible = false;
+
+            //尝试Levenshtein
             var LevenshteinDistance = new Levenshtein(text_core, key).distance;
-            if (LevenshteinDistance <= threshold) {
+            if (LevenshteinDistance <= threshold)
+                possible = true;
+
+            //尝试包含
+            if (key.indexOf(text_core_strip_parentheses) >= 0)
+                possible = true;
+
+            if (possible) {
                 if (confirm(text + '\n' + key + '\n这两题是否一样？')) {
                     return window.fdty_database[key];
-                } else {
-                    return undefined;
                 }
             }
         }
+        return undefined;
     }
 
 
