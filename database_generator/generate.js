@@ -82,7 +82,7 @@ for (var n = 0; n < files.length; n++) {
 }
 
 
-fs.writeFileSync("database.js",
+fs.writeFileSync("../database.js",
     'var fdty_database=' +
     JSON.stringify(result)
     , {encoding: "utf8"}

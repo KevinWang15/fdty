@@ -2,7 +2,8 @@
 * 方便易用，基于Chrome，兼容所有操作系统，无需安装任何软件。
 * 自动读取网页、匹配题库，瞬间出答案、自动勾选，节省时间。
 * 支持是非题与单选题
-* 截止到2016年5月26日，总共有5110道不重复的是非题、524道不重复的单选题。
+* 截止到2016年12月2日，总共有5133道不重复的是非题、524道不重复的单选题。
+* 智能容错，若发现题目是数据库中某题修改了几个字，会提醒用户判断
 
 ##一张图体会一下
 ![show](screenshots/show.png)
@@ -37,7 +38,7 @@
 ###4. 复制以下代码，粘贴、运行
 ![show](screenshots/2.png)
 
-	var fdty_loader = document.createElement("script");fdty_loader.type = "text/javascript";console.info('正在加载自动答题脚本');fdty_loader.src = "http://139.196.50.217/fdty/fdty.js";document.getElementsByTagName("head")[0].appendChild(fdty_loader);
+	var fdty_src="http://139.196.50.217/fdty/fdty.js";var f_sl = document.createElement("script");f_sl.type = "text/javascript";console.info('正在加载自动答题脚本');f_sl.src = fdty_src;document.getElementsByTagName("head")[0].appendChild(f_sl);
 
 
 ### 5. 检查试卷、补充数据库中没有的题目的答案、交卷
