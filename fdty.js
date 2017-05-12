@@ -32,19 +32,17 @@
         return 'repVer_rbtn_ver_' + id + '_' + (answer ? 1 : 0) + '_' + id;
     }
 
-    // 去掉了没测试的代码，求PR
-    // function getRadioButtonIdForMultipleSelection(id, answer) {
-    //     answer = stripUnimportantChars(answer);
-    //     return 'repSin_RadioButtonList' + id + '_0_' + {'a': 0, 'b': 1, 'c': 2, 'd': 3}[answer] + "_0";
-    // }
+    function getRadioButtonIdForMultipleSelection(id, answer) {
+        answer = stripUnimportantChars(answer);
+        return 'repSin_RadioButtonList1_' + id + '_' + {'a': 0, 'b': 1, 'c': 2, 'd': 3}[answer] + "_" + id;
+    }
 
     function doWork(panelElement, questionType) {
         //主要算法在此。
 
-        console.info('【======== ' + questionType + ' ========】');
-        if (questionType == '单选题')
-            console.log('%c 单选题自动勾选功能未完成，请按照答案手动勾选。\n%c（我的体考没有单选题，所以做不了，有兴趣的同学可以实现本功能并在https://github.com/KevinWang15/fdty发pr，或通过github联系我协助我完成）', 'color: orange;', 'color: #AAA;');
-
+        console.info('%c【 ' + questionType + ' 】','color:#2196F3;text-shadow:#00bcd4 0px 0px 2px;font-size:14px;margin:0 -6px');
+        // if (questionType == '单选题')
+        //     console.log('%c单选题自动勾选未经大量测试，请仔细核对！%c\n> 报告问题： https://github.com/KevinWang15/fdty/issues', 'color: orange;', 'color: #AAA;');
 
         var html = panelElement.html();
         var questions = [];
@@ -90,12 +88,7 @@
                 window.jQuery("#" + getRadioButtonId(questionI, answer ^ 1)).click();
             }
             else {
-                // 去掉了没测试的代码，求PR
-                // try {
-                //     window.jQuery("#" + getRadioButtonIdForMultipleSelection(questionI + 1, answer)).click();
-                // } catch (ex) {
-                //     console.warn('单选题自动勾选发生了异常。\n报告问题： https://github.com/KevinWang15/fdty', getRadioButtonIdForMultipleSelection(questionI + 1, answer), ex);
-                // }
+                window.jQuery("#" + getRadioButtonIdForMultipleSelection(questionI, answer)).click();
             }
         });
 
