@@ -6,7 +6,7 @@
 * 智能容错，若发现题目是数据库中某题修改了几个字，会提醒用户判断。
 
 ## 一张图体会一下
-![show](screenshots/show.png)
+![show](screenshots/show.png?2017-5-22)
 不光自动匹配，还会帮您自动勾选上！
 
 所以，按照下面的【使用方法】做一遍，然后点交卷，基本就能满分了。
@@ -31,18 +31,18 @@
 | Mac | <kbd>Command</kbd>+<kbd>Option</kbd>+<kbd>J</kbd> |
 
 ### 3. 修改左上角下拉菜单的值
-![show](screenshots/1.png)
+![show](screenshots/1.png?2017-5-22)
 
 调整为 ```paper(stexampaperV1.aspx)```
 
 ### 4. 复制以下代码，粘贴、运行
-![show](screenshots/2.png)
+![show](screenshots/2.png?2017-5-22)
 
 	var fdty_src="http://139.196.50.217/fdty/fdty.js";var f_sl = document.createElement("script");f_sl.type = "text/javascript";console.info('正在加载自动答题脚本');f_sl.src = fdty_src;document.getElementsByTagName("head")[0].appendChild(f_sl);
 
 
 ### 5. 检查试卷、补充数据库中没有的题目的答案、交卷
-![show](screenshots/3.png)
+![show](screenshots/3.png?2017-5-22)
 只要数据库中有答案的，本程序会帮您自动勾选，但您还是要检查一下试卷哦！
 
 数据库中没答案的，就不会自动勾选，您需要百度一下，然后手动勾选。
