@@ -44,7 +44,7 @@
 
         console.info('%c【 ' + questionType + ' 】','color:#2196F3;text-shadow:#00bcd4 0px 0px 2px;font-size:14px;margin:0 -6px');
         if (questionType == '单选题')
-            console.log('%c体教部网站修改了体育理论考试系统，单选题自动勾选未经测试，请仔细核对！%c\n> 报告问题： https://github.com/KevinWang15/fdty/issues', 'color: orange;', 'color: #AAA;');
+            console.log('%c体教部网站修改了体育理论考试系统，单选题自动勾选未经测试，暂时已经禁用！\n如果您的考试中有单选题，请在开发者工具Elements面板，选中<body>元素，右键以HTML编辑，复制全部内容，并粘贴一份给我。%c\n> https://github.com/KevinWang15/fdty/issues', 'color: orange;', 'color: #AAA;');
 
         var html = panelElement.html();
         var questions = [];
@@ -88,7 +88,7 @@
                 getRadioButtonElement(questionI, answer).click();
             }
             else {
-                getRadioButtonElementForMultipleSelection(questionI, answer).click();
+                // getRadioButtonElementForMultipleSelection(questionI, answer).click();
             }
         });
 
