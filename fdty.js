@@ -28,21 +28,23 @@
         return str.replace(/[ 　\t\r\n,，\.。:：“”《》？?！!~～｀`【】()_—\-＿－（）<>、\/\\"'`]/mg, "").toLowerCase();
     }
 
-    function getRadioButtonId(id, answer) {
-        return 'repVer_rbtn_ver_' + id + '_' + (answer ? 1 : 0) + '_' + id;
+    function getRadioButtonElement(id, answer) {
+        return $('input', $('#repVer_rbtn_ver_' + id)).filter(function (_, item) {
+            return (+item.value == +answer);
+        })[0];
     }
 
-    function getRadioButtonIdForMultipleSelection(id, answer) {
+    function getRadioButtonElementForMultipleSelection(id, answer) {
         answer = stripUnimportantChars(answer);
-        return 'repSin_RadioButtonList1_' + id + '_' + {'a': 0, 'b': 1, 'c': 2, 'd': 3}[answer] + "_" + id;
+        return window.jQuery('#repSin_RadioButtonList1_' + id + '_' + {'a': 0, 'b': 1, 'c': 2, 'd': 3}[answer] + "_" + id);
     }
 
     function doWork(panelElement, questionType) {
         //主要算法在此。
 
         console.info('%c【 ' + questionType + ' 】','color:#2196F3;text-shadow:#00bcd4 0px 0px 2px;font-size:14px;margin:0 -6px');
-        // if (questionType == '单选题')
-        //     console.log('%c单选题自动勾选未经大量测试，请仔细核对！%c\n> 报告问题： https://github.com/KevinWang15/fdty/issues', 'color: orange;', 'color: #AAA;');
+        if (questionType == '单选题')
+            console.log('%c体教部网站修改了体育理论考试系统，单选题自动勾选未经测试，请仔细核对！%c\n> 报告问题： https://github.com/KevinWang15/fdty/issues', 'color: orange;', 'color: #AAA;');
 
         var html = panelElement.html();
         var questions = [];
@@ -79,16 +81,14 @@
                 console.log((questionI + 1) + "." + '%c×错误 %c' + question.text, 'color: red', 'color: black');
             else {
                 console.log((questionI + 1) + "." + '%c答案：' + answer + ' %c' + question.text, 'color: orange', 'color: black');
-
-                // console.warn('单选题自动勾选还未实现，请手动选择.');
             }
 
             //自动勾选是非题
             if (answer === true || answer === false) {
-                window.jQuery("#" + getRadioButtonId(questionI, answer ^ 1)).click();
+                getRadioButtonElement(questionI, answer).click();
             }
             else {
-                window.jQuery("#" + getRadioButtonIdForMultipleSelection(questionI, answer)).click();
+                getRadioButtonElementForMultipleSelection(questionI, answer).click();
             }
         });
 
