@@ -10,7 +10,7 @@
  * 求完善题库，请发Pull Request
  *
  * By 王轲 (KevinWang)
- * 2017-5-12
+ * 2017-12-10
  */
 
 (function () {
@@ -36,59 +36,56 @@
 
     function getRadioButtonElementForMultipleSelection(id, answer) {
         answer = stripUnimportantChars(answer);
-        return window.jQuery('#repSin_RadioButtonList1_' + id + '_' + {'a': 0, 'b': 1, 'c': 2, 'd': 3}[answer] + "_" + id);
+        return $('input', $('#repSin_RadioButtonList1_' + id)).filter(function (_, item) {
+            return (item.value.trim().toUpperCase() == answer.trim().toUpperCase());
+        })[0];
     }
 
-    function doWork(panelElement, questionType) {
+    function doWork(panelElement) {
         //主要算法在此。
-
-        console.info('%c【 ' + questionType + ' 】','color:#2196F3;text-shadow:#00bcd4 0px 0px 2px;font-size:14px;margin:0 -6px');
-        if (questionType == '单选题')
-            console.log('%c体教部网站修改了体育理论考试系统，单选题自动勾选未经测试，暂时已经禁用！\n如果您的考试中有单选题，请在开发者工具Elements面板，选中<body>元素，右键以HTML编辑，复制全部内容，并粘贴一份给我。%c\n> https://github.com/KevinWang15/fdty/issues', 'color: orange;', 'color: #AAA;');
 
         var html = panelElement.html();
         var questions = [];
 
         var successCount = 0;
-        var questionI = -1;
+        var questionI = { trueOrFalse: -1, choice: -1 };
 
-        var regexp = /(\d+)\s*\n\s*\.\s*\n\s*(.+?)$/mg;
+        var regexp = /(\d+)\s*\n\s*\.\s*\n\s*(.+?)$[\s\S]+?table id="(.+?)"/mg;
         var match = regexp.exec(html);
         while (match != null) {
-            questions.push({id: +match[1], text: match[2]});
+            questions.push({id: +match[1], text: match[2], type: match[3].indexOf('Radio')>=0?'choice':'trueOrFalse'});
             match = regexp.exec(html);
         }
         questions.forEach(function (question) {
-            questionI++;
-
             var strippedText = stripUnimportantChars(question.text);
             var answer = window.fdty_database[strippedText];
 
             if (typeof answer == 'undefined') {
                 answer = tryFindSimilar(question.text);
                 if (typeof answer == 'undefined') {
-                    console.error('【题库中没有答案！】', question.text);
+                    questionI[question.type]++;
+                    if(question.type==='trueOrFalse'){
+                        console.log((questionI[question.type]+1) + '.%c?失配 %c'+ question.text,'color: #B700FF','color:black');
+                    }else {
+                        console.log((questionI[question.type]+1) + '.%c答案：? %c'+ question.text,'color: #B700FF','color:black');
+                    }
                     return;
                 }
             }
 
             successCount++;
-
-
-            if (answer === true)
-                console.log((questionI + 1) + "." + '%c√正确 %c' + question.text, 'color: green', 'color: black');
-            else if (answer === false)
-                console.log((questionI + 1) + "." + '%c×错误 %c' + question.text, 'color: red', 'color: black');
-            else {
-                console.log((questionI + 1) + "." + '%c答案：' + answer + ' %c' + question.text, 'color: orange', 'color: black');
-            }
-
-            //自动勾选是非题
-            if (answer === true || answer === false) {
-                getRadioButtonElement(questionI, answer).click();
-            }
-            else {
-                // getRadioButtonElementForMultipleSelection(questionI, answer).click();
+            if (answer === true) {
+                questionI.trueOrFalse++;
+                getRadioButtonElement(questionI.trueOrFalse, answer).click();
+                console.log((questionI.trueOrFalse + 1) + "." + '%c√正确 %c' + question.text, 'color: green', 'color: black');
+            } else if (answer === false) {
+                questionI.trueOrFalse++;
+                getRadioButtonElement(questionI.trueOrFalse, answer).click();
+                console.log((questionI.trueOrFalse + 1) + "." + '%c×错误 %c' + question.text, 'color: red', 'color: black');
+            } else {
+                questionI.choice++;
+                getRadioButtonElementForMultipleSelection(questionI.choice, answer).click();
+                console.log((questionI.choice + 1) + "." + '%c答案：' + answer + ' %c' + question.text, 'color: orange', 'color: black');
             }
         });
 
@@ -163,10 +160,10 @@
 
                     loadScript(base_url + 'database.js', function () {
                         console.info('题库下载成功！总共' + Object.keys(window.fdty_database).length + "条记录");
-                        doWork(window.jQuery('#Panel3'), '是非题');
-                        doWork(window.jQuery('#Panel1'), '单选题');
+                        doWork(window.jQuery('#Panel3'));
 
                         console.warn('程序完成，请【仔细核对】！\n请过几分钟，等计时器走到一个正常数字了，再交卷！');
+                        console.log('%c反馈问题: https://github.com/KevinWang15/fdty/issues', 'color: #AAA;');
                     });
                 }
             }, 100);
