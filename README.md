@@ -1,5 +1,4 @@
-# 复旦体育理论考试-自动答题机器
-![收录题目总数](https://img.shields.io/badge/收录题目总数-5700-green.svg) ![最后更新时间](https://img.shields.io/badge/最后更新时间-2018/6/1-blue.svg) 
+# 复旦体育理论考试-自动答题机器 ![收录题目总数](https://img.shields.io/badge/收录题目总数-5700-green.svg) ![最后更新时间](https://img.shields.io/badge/最后更新时间-2018/6/1-blue.svg)
 * 方便易用，基于Chrome，兼容所有操作系统，无需安装任何软件。
 * 自动读取网页、匹配题库，瞬间出答案、自动勾选，节省时间。
 * 支持是非题与单选题。
