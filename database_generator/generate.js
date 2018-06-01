@@ -91,3 +91,19 @@ fs.writeFileSync("../database.js",
 console.log('\n已经写入database.js, \n成功生成是非题' + answerCount.tf + "题，单选题" + answerCount.ms + "题。" +
     (answerCount.dup > 0 ? ( "\n有" + answerCount.dup + "题重复了，已跳过。" ) : "") +
     (answerCount.conflict > 0 ? ("\n有" + answerCount.conflict + "题答案自相矛盾，已删除。") : ""));
+
+if (fs.existsSync("../README.md")) {
+  var content = fs.readFileSync("../README.md", { encoding: "UTF8" });
+  var date = new Date();
+  content = content.replace(/截止到(.+?)，总共有(.+?)道不重复的是非题、(.+?)道不重复的单选题。/,
+    '截止到' + date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日，' +
+    '总共有' + answerCount.tf + '道不重复的是非题、' + answerCount.ms + '道不重复的单选题。');
+
+  content = content.replace(/https:\/\/img.shields.io\/badge\/收录题目总数-(.+?)-green.svg/,
+    'https://img.shields.io/badge/收录题目总数-' + (answerCount.tf + answerCount.ms) + '-green.svg');
+
+  content = content.replace(/https:\/\/img.shields.io\/badge\/最后更新时间-(.+?)-blue.svg/,
+    'https://img.shields.io/badge/最后更新时间-' + date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + '-blue.svg');
+
+  fs.writeFileSync("../README.md", content, { encoding: "UTF8" });
+}
