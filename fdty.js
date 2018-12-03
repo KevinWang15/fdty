@@ -10,12 +10,13 @@
  * 求完善题库，请发Pull Request
  *
  * By 王轲 (KevinWang)
- * 2017-12-10
+ * 2018-12-3
  */
 
 (function () {
 
     var base_url;
+    var stats = {total: 0, successful: 0};
 
     if (!window.fdty_src) {
         console.error("复旦体育理论考试-自动答题机器已经更新，请至https://github.com/KevinWang15/fdty查看。");
@@ -89,7 +90,8 @@
             }
         });
 
-        console.info('总共' + questions.length + "题，匹配成功" + successCount + "题。\n　");
+        stats.total += questions.length;
+        stats.successful += successCount;
     }
 
 
@@ -160,7 +162,14 @@
 
                     loadScript(base_url + 'database.js', function () {
                         console.info('题库下载成功！总共' + Object.keys(window.fdty_database).length + "条记录");
-                        doWork(window.jQuery('#Panel3'));
+
+                        for (var i = 3; i > 0; i--) {
+                            var panel = window.jQuery('#Panel' + i);
+                            if (panel.length)
+                                doWork(panel);
+                        }
+
+                        console.info('总共' + stats.total + "题，匹配成功" + stats.successful + "题。\n　");
 
                         console.warn('程序完成，请【仔细核对】！\n请过几分钟，等计时器走到一个正常数字了，再交卷！');
                         console.log('%c反馈问题: https://github.com/KevinWang15/fdty/issues', 'color: #AAA;');
