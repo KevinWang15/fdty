@@ -160,7 +160,7 @@
                     console.info('成功找到题目！');
                     console.info('正在下载题库，请稍后（比较大，要下载一会儿）');
 
-                    loadScript(base_url + 'database.js', function () {
+                    loadScript(base_url + 'database.js?' + (+new Date()), function () {
                         console.info('题库下载成功！总共' + Object.keys(window.fdty_database).length + "条记录");
 
                         for (var i = 3; i > 0; i--) {
